@@ -12,3 +12,6 @@ fastembed
 pdfplumber
 sentence-transformers
 elevenlabs
+langgraph 
+langchain-openai 
+duckduckgo-search
