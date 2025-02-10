@@ -1,20 +1,16 @@
 import sys
 import os
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-from chain.llm import LLM
-
-# Load the write prompt template
-with open('./chain/prompt_write.txt', 'r') as file:
-    write_template = file.read()
+from llm import LLM
+from chain.prompts import WRITING_PROMPT
 
 # Create a ChatPromptTemplate
 write_prompt = ChatPromptTemplate([
-    ('user', write_template)
+    ('user', WRITING_PROMPT)
     ])
 
 # Create the write chain
@@ -28,7 +24,7 @@ if __name__ == "__main__":
     
     # Invoke the write_chain
     result = write_chain.invoke({
-        "intructions": test_instruction,
+        "instructions": test_instruction,
         "plan": test_plan,
         "text": test_text,
         "STEP": "Paragraph 1"

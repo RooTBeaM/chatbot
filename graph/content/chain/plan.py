@@ -1,24 +1,20 @@
 import sys
 import os
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# print(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from chain.llm import LLM
+from llm import LLM
+from chain.prompts import PLANNING_PROMPT
 
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-# Load the plan prompt template
-with open('./chain/prompt_plan.txt', 'r') as file:
-    plan_template = file.read()
-
 # Create a PromptTemplate
 plan_prompt = ChatPromptTemplate([
-        ('user', plan_template)
+        ('user', PLANNING_PROMPT)
     ])
 
-
 plan_chain = plan_prompt | LLM | StrOutputParser()
-
 
 ## For testing
 if __name__ == "__main__":
@@ -29,6 +25,7 @@ if __name__ == "__main__":
     result = plan_chain.invoke({"instructions": test_instruction})
     
     # Print the result
+    print(f"LLM model : {plan_chain.__dict__['middle']}")
     print("Generated Writing Plan:")
     print(result)
 

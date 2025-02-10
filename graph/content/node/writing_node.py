@@ -1,6 +1,10 @@
-from langchain.schema import Document
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# print(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from chain.writing import write_chain
-import re 
+import re
 
 def count_words(text):
         """
@@ -28,15 +32,19 @@ def writing_node(state):
     txt = re.sub(r"\*\*", "", plan)
     plan = txt.strip().replace('\n\n', '\n')
     txt_ls = plan.split('\n')
-    planning_steps = [x for x in txt_ls if "paragraph" in x[:9].lower()]
+    planning_steps = [x for x in txt_ls if "paragraph" in x.lower()]
 
     text = ""
     responses = []
     if len(planning_steps) > 50:
         print("plan is too long")
-        # print(plan)
-        return
+        print(plan)
+        return None
     for idx,step in enumerate(planning_steps):
+        # result = step
+        print(f"----------------------------{idx}----------------------------")
+        print(step)
+        print("----------------------------\n\n")
         # Invoke the write_chain
         result = write_chain.invoke({
             "instructions": initial_instruction,
@@ -44,10 +52,6 @@ def writing_node(state):
             "text": text,
             "STEP": step
         })
-        # result = step
-        print(f"----------------------------{idx}----------------------------")
-        print(step)
-        print("----------------------------\n\n")
         responses.append(result)
         text += result + '\n\n'
 
