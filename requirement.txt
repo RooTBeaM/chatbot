@@ -12,6 +12,10 @@ fastembed
 pdfplumber
 sentence-transformers
 elevenlabs
-langgraph 
 langchain-openai 
 duckduckgo-search
+
+langgraph==0.2.3
+langgraph-checkpoint==1.0.2
+langgraph-checkpoint-postgres==1.0.3
+langgraph-checkpoint-sqlite==1.0.0
