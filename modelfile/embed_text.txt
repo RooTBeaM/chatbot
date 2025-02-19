@@ -1,0 +1,3 @@
+FROM hf.co/KeyurRamoliya/multilingual-e5-large-GGUF:latest
+
+TEMPLATE {{ .Prompt }}
